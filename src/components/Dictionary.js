@@ -28,34 +28,34 @@ export default function Dictionary() {
 
   return (
     <div>
-      <div class="dictionary">
+      <div className="dictionary">
         <h3 style={{ padding: "10px" }}>Dictionary</h3>
-        <div class="container">
-          <div class="result" id="result">
+        <div className="container">
+          <div className="result" id="result">
             {loading && <div>A moment please...</div>}
             {error && (
               <div>
-                <h3 class="error">Couldn't Find The Word</h3>
+                <h3 className="error">Couldn't Find The Word</h3>
               </div>
             )}
             {data &&
               data.map(({id}) => (
                 <>
                   <audio id="sound" src={data[0].phonetics[0].audio}></audio>
-                  <div class="word">
+                  <div className="word">
                     <h3>{lookup}</h3>
                     <button >
-                      <i class="fas fa-volume-up"></i>
+                      <i className="fas fa-volume-up"></i>
                     </button>
                   </div>
-                  <div class="details">
+                  <div className="details">
                     <p>{data[0].meanings[0].partOfSpeech}</p>
                     <p>/{data[0].phonetic}/</p>
                   </div>
-                  <p class="word-meaning">
+                  <p className="word-meaning">
                     {data[0].meanings[0].definitions[0].definition}
                   </p>
-                  <p class="word-example">
+                  <p className="word-example">
                     {data[0].meanings[0].definitions[0].example || ""}
                   </p>
                 </>

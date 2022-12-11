@@ -1,8 +1,10 @@
 import React from "react";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
+
 import "../style.css";
 import Dictionary from "../components/Dictionary";
+import Vote from "../components/Vote";
+import Qna from "../components/Qna";
+import Layout from "../components/Layout";
 
 export default function Home() {
   function getSelectedText() {
@@ -12,7 +14,7 @@ export default function Home() {
     return "";
   }
 
-  // function setupDoubleClick(areaClass, maxAllowedWords) {
+  // function setupDoubleClick(areaclassName, maxAllowedWords) {
   //   //shows the definition layer
   //   var showLayer = function (e) {
   //     e.preventDefault();
@@ -49,62 +51,62 @@ export default function Home() {
   //     }
   //   };
 
-  //   // var area = areaClass ? "." + areaClass : "body";
+  //   // var area = areaclassName ? "." + areaclassName : "body";
   //   // (area).mouseup(showLayer);
 
   // }
 
   return (
     <div>
-      <Header />
-      <div class="main">
-        <div class="topic_list">
+      <Layout>
+      <div className="main">
+        <div className="topic_list">
           <li>Topic List</li>
         </div>
 
-        <div class="content">
-          <div class="content_header">
-            <h1>What Not to Say to Someone With Schizophrenia</h1>
+        <div className="content">
+          <div className="content_header">
+            <h2>What Not to Say to Someone With Schizophrenia</h2>
             <div>
               <button
-                style={{ margin: "2px" }}
+                style={{ margin: "2px", padding:'0px 5px' }}
                 type="button"
-                class="btn btn-outline-primary btn-sm"
+                className="btn btn-outline-primary btn-sm"
               >
                 Share
               </button>
 
               <button
-                style={{ margin: "2px" }}
+                style={{ margin: "2px", padding:'0px 5px'}}
                 type="button"
-                class="btn btn-outline-primary btn-sm"
+                className="btn btn-outline-primary btn-sm"
               >
                 Print
               </button>
               <button
-                style={{ margin: "2px" }}
+                style={{ margin: "2px", padding:'0px 5px' }}
                 type="button"
-                class="btn btn-outline-primary btn-sm"
+                className="btn btn-outline-primary btn-sm"
               >
                 Feedback
               </button>
             </div>
             <div style={{ display: "flex" }}>
               <div style={{ width: "50%" }}>
-                <span class="content_details">By</span>
-                <span class="content_details"> Lisa Guardiola</span> •
-                <span class="content_details"> Last Edited: 9/12/2022 </span> •
-                <span class="content_details"> Views:</span>
+                <span className="content_details">By</span>
+                <span className="content_details"> Lisa Guardiola</span> •
+                <span className="content_details"> Last Edited: 9/12/2022 </span> •
+                <span className="content_details"> Views: 3,925</span>
               </div>
               <div style={{ textAlign: "end", width: "50%" }}>
-                <span class="content_details">
+                <span className="content_details">
                   % of readers found this article <b>helpful</b>.
                 </span>
               </div>
             </div>
           </div>
 
-          <div id="target_div" class="content_text">
+          <div id="target_div" className="content_text">
             <p>
               When I was first diagnosed with schizophrenia, I often found that
               it was difficult to come out of my shell and meet new people. As
@@ -152,10 +154,17 @@ export default function Home() {
               symptoms worse, and you are intruding on their privacy as well.{" "}
             </p>
           </div>
+
+          <div>
+            <Vote/>
+          </div>
+          <div>
+            <Qna/>
+          </div>
         </div>
         <Dictionary />
       </div>
-      <Footer />
+      </Layout>
     </div>
   );
 }
