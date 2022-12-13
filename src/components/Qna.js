@@ -5,7 +5,7 @@ export default function Qna() {
     <div>
       <div className="headline_container block_header">
         <div className="altblock"></div>
-        <div className="headline_info">
+        <div className="headline_info" style={{textAlign: 'center'}}>
           <h2 className="qa_heading">
             <span className="mw-headline" id="qa_headline">
               Community Q&amp;A
@@ -14,7 +14,7 @@ export default function Qna() {
         </div>
       </div>
 
-      <div>
+      <div style={{textAlign: 'center'}}>
         <h4> Ask a Question</h4>
         <div style={{display: 'block'}}>
         <div>

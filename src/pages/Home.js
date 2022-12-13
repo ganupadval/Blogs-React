@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import "../style.css";
 import Dictionary from "../components/Dictionary";
@@ -7,13 +7,23 @@ import Qna from "../components/Qna";
 import Layout from "../components/Layout";
 
 export default function Home() {
+
+  const [Lookup, setLookup] = useState("");
+
   function getSelectedText() {
     if (window.getSelection) return window.getSelection().toString();
     else if (document.getSelection) return document.getSelection();
     else if (document.selection) return document.selection.createRange().text;
     return "";
   }
-
+ const showLayer = function (e) {
+           e.preventDefault();
+      setLookup = getSelectedText();
+      Lookup = Lookup.replace(/[\.\*\?;!()\+,\[:\]<>^_`\[\]{}~\\\/\"\'=]/g, " ");
+      Lookup = Lookup.replace(/\s+/g, " ");
+      alert(Lookup);
+    
+    }
   // function setupDoubleClick(areaclassName, maxAllowedWords) {
   //   //shows the definition layer
   //   var showLayer = function (e) {
@@ -155,15 +165,15 @@ export default function Home() {
             </p>
           </div>
 
-          <div>
-            <Vote/>
-          </div>
-          <div>
-            <Qna/>
-          </div>
         </div>
         <Dictionary />
       </div>
+          <div className="content-card">
+            <Vote/>
+          </div>
+          <div className="content-card">
+            <Qna/>
+          </div>
       </Layout>
     </div>
   );

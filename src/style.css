@@ -45,6 +45,16 @@
     
 }
 
+.content-card{
+  
+    margin: auto;
+    width: 50%;
+    margin-bottom: 20px;
+    background-color: aliceblue;
+    padding: 10px;
+    height: fit-content;
+}
+
 .content_header{
     font-family:sans-serif;
     color: #0e365a;
