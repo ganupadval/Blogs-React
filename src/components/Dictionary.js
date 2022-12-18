@@ -39,7 +39,7 @@ export default function Dictionary() {
               </div>
             )}
             {data &&
-              data.map(({id}) => (
+              data.map(() => (
                 <>
                   <audio id="sound" src={data[0].phonetics[0].audio}></audio>
                   <div className="word">
