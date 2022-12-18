@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import def from "../components/data";
+import React, { useEffect, useState, useRef } from "react";
+
 import Defination from "../components/Defination";
 
 // function getSelectedText() {
@@ -10,7 +10,7 @@ import Defination from "../components/Defination";
 // }
 
 function SetupDoubleClick(props) {
-
+  const ref = useRef();
   const [Lookup, setLookup] = useState("");
 
   function getSelectedText() {
@@ -25,28 +25,54 @@ function SetupDoubleClick(props) {
   return   mod.replace(/\s+/g, " ");
   
   }
-  
 
   useEffect(() => {
     console.log("useEffect");
     document.addEventListener("mouseup", () => {
       setLookup(getSelectedText);
-    });
+    }
+    );
   }, []);
  const mod = replaceSpecialCharacters(Lookup);
  console.log(mod)
 
- return <Defination  id={"definition_layer"} style={{
-  position: "absolute",
-  curser: "pointer",
-}} img={"src/assets/definition-layer.gif"} />;
+ useEffect(() => {
+  document.addEventListener("mouseup", (e) => {
+    ref.current.style.left =e.pageX -30 +'px';
+    ref.current.style.top =e.pageY -45 +'px';
+    ref.current.style.position ='absolute'
+    
+  })
+});
+
+
+const handleMouseUp = (e) => {
+  e.stopPropagation();
+  console.log('working');
+};
+
+ return mod.length !== 0 ? (
+  <>
+  
+  <div
+        ref={ref}
+        id="definition_layer"
+        // onMouseMove={handleMouseMove}
+        // style={{ position: "absolute", cursor: "pointer" }}
+        onMouseUp={handleMouseUp}
+      >
+        <img  alt="defination" src="/assets/definition-layer.jpg"  />
+      </div>
+
+      </>
+  
+  
+) : null;
  
 
 }
 
-function defMap(item) {
- 
-}
+
 
 
 export default SetupDoubleClick;
