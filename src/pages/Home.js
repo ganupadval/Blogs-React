@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState , useEffect } from "react";
 import SetupDoubleClick from "./DoubleClick";
 import "../style.css";
 import Dictionary from "../components/Dictionary";
@@ -6,77 +6,46 @@ import Vote from "../components/Vote";
 import Qna from "../components/Qna";
 import Layout from "../components/Layout";
 import Defination from "../components/Defination";
+import DictionaryLookup from "../components/chatgpt"
 
 export default function Home() {
-  // const [Lookup, setLookup] = useState("");
+  const url = "https://api.dictionaryapi.dev/api/v2/entries/en/";
+  // const lookup = "view";
+  const [lookup, setLookup] = useState('');
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  // function getSelectedText() {
-  //   if (window.getSelection) return window.getSelection().toString();
-  //   else if (document.getSelection) return document.getSelection();
-  //   else if (document.selection) return document.selection.createRange().text;
-  //   return "";
-  // }
+  
+  function set(a){
+    setLookup(a)
+    console.log(a)
+  }
+  useEffect(() => {
+    fetch(url + lookup)
+      .then((response) => response.json())
+      .then((actualData) => {
+        setData(actualData);
+        console.log(actualData);
+        setError(null);
+      })
+      .catch((err) => {
+        setError(err.message);
+        setData(null);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, [lookup]);
 
-  // setupDoubleClick = (areaclassName, maxAllowedWords) => {
-  //   const showLayer = function (e) {
-  //     e.preventDefault();
-  //     setLookup = getSelectedText();
-  //     Lookup = Lookup.replace(
-  //       /[\.\*\?;!()\+,\[:\]<>^_`\[\]{}~\\\/\"\'=]/g,
-  //       " "
-  //     );
-  //     Lookup = Lookup.replace(/\s+/g, " ");
-  //     alert(Lookup);
-  //   };
-  // };
-  // function setupDoubleClick(areaclassName, maxAllowedWords) {
-  //   //shows the definition layer
-  //   var showLayer = function (e) {
-  //     e.preventDefault();
-  //     var lookup = getSelectedText();
-  //     lookup = lookup.replace(/[\.\*\?;!()\+,\[:\]<>^_`\[\]{}~\\\/\"\'=]/g, " ");
-  //     lookup = lookup.replace(/\s+/g, " ");
-  //     if (lookup != null && lookup.replace("/s/g", "").length > 0) {
-  //       //disable the double-click feature if the lookup string
-  //       //exceeds the maximum number of allowable words
-  //       if (maxAllowedWords && lookup.split(/[ -]/).length > maxAllowedWords)
-  //         return;
 
-  //       //append the layer to the DOM only once
-  //       if ( ("#definition_layer").length === 0) {
-  //         // var imageUrl = websiteUrl + "external/images/doubleclick/definition-layer.gif";
-  //          ("body").append(
-  //           <div id='definition_layer' style={{position:'absolute', cursor:'pointer'}}><img src='src\assets\definition-layer.gif' alt='' title=''/></div>
-  //         );
-  //       }
-
-  //       //move the layer at the cursor position
-  //        ("#definition_layer").map(function () {
-  //          (this).css({ left: e.pageX - 30, top: e.pageY - 40 });
-  //       });
-
-  //       //open the definition popup clicking on the layer
-  //        ("#definition_layer").mouseup(function (e) {
-  //         e.stopPropagation();
-
-  //         // openPopup(lookup, translateDictionary);
-  //       });
-  //     } else {
-  //        ("#definition_layer").remove();
-  //     }
-  //   };
-
-  //   // var area = areaclassName ? "." + areaclassName : "body";
-  //   // (area).mouseup(showLayer);
-
-  // }
 
   return (
     <div>
       <Layout>
         <div className="main">
-          {SetupDoubleClick()}
-
+          <SetupDoubleClick set={set}/>
+          {/* <DictionaryLookup areaClass={null}/> */}
           <div className="topic_list">
             <li>Topic List</li>
           </div>
@@ -178,7 +147,7 @@ export default function Home() {
               </p>
             </div>
           </div>
-          <Dictionary />
+          <Dictionary  lookup={lookup} data={data} loading={loading} error={error} />
         </div>
         <div className="content-card">
           <Vote />

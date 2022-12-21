@@ -1,17 +1,17 @@
 import React, { useEffect, useState, useRef } from "react";
 
 import Defination from "../components/Defination";
+import Dictionary from "../components/Dictionary";
 
-// function getSelectedText() {
-//   if (window.getSelection) return window.getSelection().toString();
-//   else if (document.getSelection) return document.getSelection();
-//   else if (document.selection) return document.selection.createRange().text;
-//   return "";
-// }
 
-function SetupDoubleClick(props) {
-  const ref = useRef();
+
+function SetupDoubleClick({set}) {
+  const ref = useRef(null);
   const [Lookup, setLookup] = useState("");
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
 
   function getSelectedText() {
     if (window.getSelection) return window.getSelection().toString();
@@ -20,21 +20,19 @@ function SetupDoubleClick(props) {
     return "";
   }
 
-  function replaceSpecialCharacters(Lookup) {
-    let mod= Lookup.replace(/[\.\*\?;!()\+,\[:\]<>^_`\[\]{}~\\\/\"\'=]/g, " ");
-  return   mod.replace(/\s+/g, " ");
-  
-  }
+
 
   useEffect(() => {
     console.log("useEffect");
-    document.addEventListener("mouseup", () => {
-      setLookup(getSelectedText);
+    document.addEventListener("mouseup", (e) => {
+      setLookup(getSelectedText().replace(/[\.\*\?;!()\+,\[:\]<>^_`\[\]{}~\\\/\"\'=]/g, " ").replace(/\s+/g, " "));
+
     }
     );
-  }, []);
- const mod = replaceSpecialCharacters(Lookup);
- console.log(mod)
+  },[]);
+ 
+//  console.log(Lookup)
+
 
  useEffect(() => {
   document.addEventListener("mouseup", (e) => {
@@ -48,17 +46,32 @@ function SetupDoubleClick(props) {
 
 const handleMouseUp = (e) => {
   e.stopPropagation();
-  console.log('working');
+  set(Lookup)
 };
 
- return mod.length !== 0 ? (
+const api = (Lookup) => {
+  fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${Lookup}`)
+    .then((response) => response.json())
+    .then((actualData) => {
+      setData(actualData);
+      console.log(actualData);
+      setError(null);
+    })
+    .catch((err) => {
+      setError(err.message);
+      setData(null);
+    })
+    .finally(() => {
+      setLoading(false);
+    });
+};
+
+ return Lookup.length !== 0 ? (
   <>
   
   <div
         ref={ref}
         id="definition_layer"
-        // onMouseMove={handleMouseMove}
-        // style={{ position: "absolute", cursor: "pointer" }}
         onMouseUp={handleMouseUp}
       >
         <img  alt="defination" src="/assets/definition-layer.jpg"  />
