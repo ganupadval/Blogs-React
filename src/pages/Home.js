@@ -5,8 +5,7 @@ import Dictionary from "../components/Dictionary";
 import Vote from "../components/Vote";
 import Qna from "../components/Qna";
 import Layout from "../components/Layout";
-import Defination from "../components/Defination";
-import DictionaryLookup from "../components/chatgpt"
+
 
 export default function Home() {
   const url = "https://api.dictionaryapi.dev/api/v2/entries/en/";

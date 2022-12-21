@@ -2,7 +2,7 @@ import React from "react";
 import "../style.css";
 import { useState, useEffect } from "react";
 
-export default function Dictionary({ lookup, data, error, loading}) {
+export default function Dictionary({ lookup, data, error, loading }) {
   // const url = "https://api.dictionaryapi.dev/api/v2/entries/en/";
   // const lookup = "view";
   // const [data, setData] = useState(null);
@@ -39,26 +39,26 @@ export default function Dictionary({ lookup, data, error, loading}) {
               </div>
             )}
             {data &&
-              data.map(() => ( 
-                < >
-                <div>
-                  <audio id="sound" src={data[0].phonetics[0].audio}></audio>
-                  <div className="word">
-                    <h3>{lookup}</h3>
-                    <button >
-                      <i className="fas fa-volume-up"></i>
-                    </button>
-                  </div>
-                  <div className="details">
-                    <p>{data[0].meanings[0].partOfSpeech}</p>
-                    <p>/{data[0].phonetic}/</p>
-                  </div>
-                  <p className="word-meaning">
-                    {data[0].meanings[0].definitions[0].definition}
-                  </p>
-                  <p className="word-example">
-                    {data[0].meanings[0].definitions[0].example || ""}
-                  </p>
+              data.map((item, index) => (
+                <>
+                  <div key={index}>
+                    <audio id="sound" src={data[0].phonetics[0].audio}></audio>
+                    <div className="word">
+                      <h3>{lookup}</h3>
+                      <button>
+                        <i className="fas fa-volume-up"></i>
+                      </button>
+                    </div>
+                    <div className="details">
+                      <p>{data[0].meanings[0].partOfSpeech}</p>
+                      <p>/{data[0].phonetic}/</p>
+                    </div>
+                    <p className="word-meaning">
+                      {data[0].meanings[0].definitions[0].definition}
+                    </p>
+                    <p className="word-example">
+                      {data[0].meanings[0].definitions[0].example || ""}
+                    </p>
                   </div>
                 </>
               ))}

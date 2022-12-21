@@ -8,9 +8,9 @@ import Dictionary from "../components/Dictionary";
 function SetupDoubleClick({set}) {
   const ref = useRef(null);
   const [Lookup, setLookup] = useState("");
-  const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  // const [data, setData] = useState(null);
+  // const [loading, setLoading] = useState(true);
+  // const [error, setError] = useState(null);
 
 
   function getSelectedText() {
@@ -49,22 +49,22 @@ const handleMouseUp = (e) => {
   set(Lookup)
 };
 
-const api = (Lookup) => {
-  fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${Lookup}`)
-    .then((response) => response.json())
-    .then((actualData) => {
-      setData(actualData);
-      console.log(actualData);
-      setError(null);
-    })
-    .catch((err) => {
-      setError(err.message);
-      setData(null);
-    })
-    .finally(() => {
-      setLoading(false);
-    });
-};
+// const api = (Lookup) => {
+//   fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${Lookup}`)
+//     .then((response) => response.json())
+//     .then((actualData) => {
+//       setData(actualData);
+//       console.log(actualData);
+//       setError(null);
+//     })
+//     .catch((err) => {
+//       setError(err.message);
+//       setData(null);
+//     })
+//     .finally(() => {
+//       setLoading(false);
+//     });
+// };
 
  return Lookup.length !== 0 ? (
   <>
